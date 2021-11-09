@@ -20,26 +20,39 @@ db.init_app(app)
 CORS(app)
 setup_admin(app)
 
-# Handle/serialize errors like a JSON object
-@app.errorhandler(APIException)
-def handle_invalid_usage(error):
-    return jsonify(error.to_dict()), error.status_code
+@app.route('/people', methods= ['GET'])
+    return jsonify(people)
 
-# generate sitemap with all your endpoints
-@app.route('/')
-def sitemap():
-    return generate_sitemap(app)
+@app.route('/people/<int:people_id>', methods= ['GET'])
+    return jsonify(people)
 
-@app.route('/user', methods=['GET'])
-def handle_hello():
+@app.route('/planets', methods= ['GET'])
+    return jsonify(planets)
 
-    response_body = {
-        "msg": "Hello, this is your GET /user response "
-    }
+@app.route('/planets/<int:planet_id>', methods= ['GET'])
+    return jsonify()
 
-    return jsonify(response_body), 200
+@app.route('/users', methods= ['GET'])
+    return jsonify()
 
-# this only runs if `$ python src/main.py` is executed
+@app.route('/users/favorites', methods= ['GET'])
+    return jsonify()
+
+@app.route('/favorite/planet/<int:planet_id>', methods= ['POST'])
+    return jsonify()
+
+@app.route('/favorite/people/<int:people_id>', methods= ['POST'])
+    return jsonify()
+
+@app.route('/favorite/planet/<int:planet_id>', methods= ['DELETE'])
+    return jsonify()
+
+@app.route('/favorite/people/<int:people_id>', methods= ['DELETE'])
+    return jsonify()
+
+
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3000))
-    app.run(host='0.0.0.0', port=PORT, debug=False)
+PORT = int(os.environ.get('PORT', 3000))
+app.run(host='0.0.0.0', port=PORT, debug=False)
+
+
