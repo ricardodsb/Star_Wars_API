@@ -99,7 +99,7 @@ def handle_single_user(users_id):
 
 @app.route('/user/<int:user_id>/favorites', methods=['GET'])
 def get_favs(users_id):
-    if request.method is not 'GET': return "Invalid Method", 404
+    if request.method != 'GET': return "Invalid Method", 404
 
     fav_planets = Favorites_planets.query.filter_by(users_id=users_id)
     fav_characters = Favorites_people.query.filter_by(users_id=users_id)
